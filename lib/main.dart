@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -12,30 +14,36 @@ void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<Settings>(create: (context) => Settings()),
-        ChangeNotifierProvider<Todos>(create: (context) => Todos()),
-      ],
-      child: Consumer<Settings>(
-        builder: (context, Settings builder, child) {
-          SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-            ),
-          );
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) =>
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<Settings>(create: (context) => Settings()),
+          ChangeNotifierProvider<Todos>(create: (context) => Todos()),
+        ],
+        child: Consumer<Settings>(
+          builder: (context, Settings builder, child) {
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+              ),
+            );
 
-          return App();
-        },
+            return MyApp();
+          },
+        ),
       ),
-    ),
+    )
   );
 }
 
-class App extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.id,
       routes: {

@@ -81,31 +81,32 @@ class _ReadReminderState extends State<ReadReminder> {
                   ),
                 );
               }
-              return ListView.builder(
-                controller: _controller,
-                scrollDirection: Axis.vertical,
-                itemCount: builder.todosLength,
-                shrinkWrap: true,
-                itemExtent: 110,
-                itemBuilder: (context, index) {
-                  final row = builder.todos[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OpenContainer(
-                      closedColor: const Color(0xFF00000).withOpacity(0.0),
-                      closedElevation: 20,
-                      openElevation: 30,
-                      closedBuilder: (context, action) => NoteWidget(
-
-                        row,
+              return Flexible(
+                child: ListView.builder(
+                  controller: _controller,
+                  scrollDirection: Axis.vertical,
+                  itemCount: builder.todosLength,
+                  shrinkWrap: true,
+                  itemExtent: 170,
+                  itemBuilder: (context, index) {
+                    final row = builder.todos[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: OpenContainer(
+                        closedColor: const Color(0xFF00000).withOpacity(0.0),
+                        closedElevation: 20,
+                        openElevation: 30,
+                        closedBuilder: (context, action) => NoteWidget(
+                          row,
+                        ),
+                        openBuilder: (context, action) => AddReminder(
+                          row: row,
+                          scaffold: widget.scaffoldKey,
+                        ),
                       ),
-                      openBuilder: (context, action) => AddReminder(
-                        row: row,
-                        scaffold: widget.scaffoldKey,
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -242,8 +243,8 @@ class NoteWidgetPainter extends CustomPainter {
       final tp = TextPainter(
         text: TextSpan(
           style: TextStyle(
-            color: Colors.black,
-            fontSize: descriptionFontSize,
+            color: Colors.white,
+            fontSize: 17,
           ),
           text: todo.title,
         ),
@@ -255,7 +256,7 @@ class NoteWidgetPainter extends CustomPainter {
       tp.layout(maxWidth: size.width / 1.5);
       final position = Offset(
         size.width / 6 - (tp.width / 4),
-        circleCenter.dy - (tp.height / 0.6),
+        circleCenter.dy - (tp.height / 0.3),
       );
 
       tp.paint(canvas, position);
@@ -266,20 +267,20 @@ class NoteWidgetPainter extends CustomPainter {
       final tp = TextPainter(
         text: TextSpan(
           style: TextStyle(
-            color: Colors.black,
-            fontSize: descriptionFontSize,
+            color: Colors.white,
+            fontSize: descriptionFontSize
           ),
           text: todo.description,
         ),
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.justify,
         textDirection: TextDirection.ltr,
       );
 
 
-      tp.layout(maxWidth: size.width / 1.5);
+      tp.layout(maxWidth: size.width / 1.35);
       final position = Offset(
-        size.width / 2 - (tp.width / 4),
-        circleCenter.dy - (tp.height / 3),
+        size.width / 3 - (tp.width / 6),
+        circleCenter.dy - (tp.height / 2),
       );
 
       tp.paint(canvas, position);
@@ -291,7 +292,7 @@ class NoteWidgetPainter extends CustomPainter {
         maxLines: 1,
         text: TextSpan(
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: dateFontSize,
           ),
           text: todo.getFormatedDate,
@@ -301,8 +302,8 @@ class NoteWidgetPainter extends CustomPainter {
 
       tp.layout(maxWidth: size.width / 1.5);
       final position = Offset(
-        40,
-        size.height - (tp.height) - 5,
+        260,
+        size.height - (tp.height) - 4,
       );
 
       tp.paint(canvas, position);

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -69,119 +68,222 @@ class _HomePageState extends State<HomePage> {
         await onPop1(context);
         return true;
       },
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-            body: ClippedPartsWidget(
-                top: Container(
-                  color: Color.fromRGBO(198,195,188,0.5),
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: Padding(padding: EdgeInsets.only(),
-                        child: FadeAnimation(1,Container(
-                          height: MediaQuery.of(context).size.height/3,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('assets/images/reminder1.jpg'),
-                                fit: BoxFit.fill
-                            ),
-                          ),
-                        ),
-                        )
-                    )
-                  )
+      child: Scaffold(
+        floatingActionButton: Container(
+          width: 100,
+          height: 40,
+          child: FloatingActionButton.extended(
+            label: Text('set pine code',
+            style: TextStyle(fontSize: 12),),
+            onPressed: (){
+              _showLockScreen(
+                context,
+                circleUIConfig: CircleUIConfig(
+                    borderColor: Colors.blue,
+                    fillColor: Colors.blue,
+                    circleSize: 30),
+                keyboardUIConfig: KeyboardUIConfig(
+                    digitBorderWidth: 2,
+                    primaryColor: Colors.blue),
+                opaque: false,
+                setButton: Text(
+                  'Set',
+                  style: const TextStyle(
+                      fontSize: 16, color: Colors.white),
+                  semanticsLabel: 'Set',
                 ),
-                bottom: Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.height/4,),
-                  child: Container(
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/note.jpg'),
-                            fit: BoxFit.fill
+                cancelButton: Text(
+                  'Cancel',
+                  style: const TextStyle(
+                      fontSize: 16, color: Colors.white),
+                  semanticsLabel: 'Cancel',
+                ),
+              );
+            },
+          ),
+        ),
+        backgroundColor: Colors.grey[200],
+        body: Column(
+          children: [
+            FadeAnimation(
+              3,
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height / 2,
+                decoration: ShapeDecoration(
+                  shadows: [
+                      BoxShadow(
+                        offset: Offset(0, 0),
+                        blurRadius: 40,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    ],
+                    color: Colors.white,
+                  shape: AppBarBorder(),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      maxRadius: 120,
+                      backgroundImage: AssetImage('assets/images/reminder.jpg')),
+                    Text('Reminder', style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Molle'
+                    ),)
+                  ],
+                ),
+              ),
+            ),
+              Column(
+                children: [
+                  FadeAnimation(
+                    4,
+                    SizedBox(
+                      width: 250,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(20.0),
+                          ),
+                        ),
+                        child: Text(
+                          'Read Reminder',
+                          style: TextStyle(fontFamily: 'Pacifico', fontSize: 15),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ReadReminder()));
+                        },
+                      ),
+                    ),
+                  ),
+                  FadeAnimation(
+                      5,
+                      SizedBox(
+                        width: 250,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(20.0)
+                            )
+                          ),
+                          child: Text(
+                            'Add Reminder',
+                            style: TextStyle(fontFamily: 'Pacifico', fontSize: 15),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child: AddReminder()));
+                          },
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Padding(padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height/3.7,
-                            left: MediaQuery.of(context).size.height/12,
-                          ),
-                              child: Column(
-                                children: [
-                                  FadeAnimation(2, Container(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: InkWell(
-                                        child: Text('Read Reminder' , style: TextStyle(fontFamily: 'Pacifico' , fontSize: 15),),
-                                        onTap: (){
-                                          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: ReadReminder()));
-                                        },
-                                      ),
-                                    ),
-                                  )),
-                                  FadeAnimation(3, Container(
-                                    child: Padding(padding: EdgeInsets.only( top: 20.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: InkWell(
-                                            child: Text('Add Reminder' , style: TextStyle(fontFamily: 'Pacifico' , fontSize: 15),),
-                                            onTap: (){
-                                              Navigator.push(context,
-                                                  PageTransition(type: PageTransitionType.fade, child: AddReminder()));
-                                            },
-                                          ),
-                                        )
-                                    ),
-                                  )
-                                  ),
-                                ],
-                              )
-                          ),
-                          Padding(padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height/3.5,
-                            left: MediaQuery.of(context).size.height/2.8,
-                          ),
-                              child: Container(
-                                child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: InkWell(
-                                        child: Text('Set Pin code' , style: TextStyle(fontSize: 15),),
-                                        onTap: (){
-                                          _showLockScreen(
-                                            context,
-                                            circleUIConfig: CircleUIConfig(borderColor: Colors.blue, fillColor: Colors.blue, circleSize: 30),
-                                            keyboardUIConfig: KeyboardUIConfig(digitBorderWidth: 2, primaryColor: Colors.blue),
-                                            opaque: false,
-                                            setButton: Text(
-                                              'Set',
-                                              style: const TextStyle(fontSize: 16, color: Colors.white),
-                                              semanticsLabel: 'Set',
-                                            ),
-                                            cancelButton: Text(
-                                              'Cancel',
-                                              style: const TextStyle(fontSize: 16, color: Colors.white),
-                                              semanticsLabel: 'Cancel',
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    )
-                                ),
-                              )
-                        ],
                       ),
-                  ),),
-                splitFunction: (Size size, double x){
-                  final normalizedX = x / size.width * pi;
-                  final waveHeight = size.height / 25;
-                  final y = size.height / 2.4 - sin (
-                      normalizedX ) * waveHeight;
-                  return y;
-                }
-            ),
-          )
-      )
+                ],
+              )
+
+              // Container(
+            //   decoration: ShapeDecoration(
+            //     color: Colors.blue,
+            //     // shape: AppBarBorder(),
+            //     /// You can also specify some neat shadows to cast on widgets scrolling under this one
+            //     shadows: [
+            //       BoxShadow(
+            //         color: Colors.black.withOpacity(0.7),
+            //         blurRadius: 18.0,
+            //         spreadRadius: 2.0,
+            //       ),
+            //     ],
+            //   ),
+            //   // decoration: BoxDecoration(
+            //   //   color: Colors.black,
+            //   //   image: DecorationImage(
+            //   //       image: AssetImage('assets/images/note.jpg'),
+            //   //       fit: BoxFit.fill
+            //   //   ),
+            //   // ),
+            // ),
+            // Column(
+            //   children: [
+            //     Column(
+            //       children: [
+            //         FadeAnimation(
+            //             2,
+            //             InkWell(
+            //               child: Text(
+            //                 'Read Reminder',
+            //                 style: TextStyle(
+            //                     fontFamily: 'Pacifico',
+            //                     fontSize: 15),
+            //               ),
+            //               onTap: () {
+            //                 Navigator.push(
+            //                     context,
+            //                     PageTransition(
+            //                         type: PageTransitionType.fade,
+            //                         child: ReadReminder()));
+            //               },
+            //             )),
+            //         FadeAnimation(
+            //             3,
+            //             InkWell(
+            //               child: Text(
+            //                 'Add Reminder',
+            //                 style: TextStyle(
+            //                     fontFamily: 'Pacifico', fontSize: 15),
+            //               ),
+            //               onTap: () {
+            //                 Navigator.push(
+            //                     context,
+            //                     PageTransition(
+            //                         type: PageTransitionType.fade,
+            //                         child: AddReminder()));
+            //               },
+            //             )),
+            //       ],
+            //     ),
+            //     InkWell(
+            //       child: Text(
+            //         'Set Pin code',
+            //         style: TextStyle(fontSize: 15),
+            //       ),
+            //       onTap: () {
+            //         _showLockScreen(
+            //           context,
+            //           circleUIConfig: CircleUIConfig(
+            //               borderColor: Colors.blue,
+            //               fillColor: Colors.blue,
+            //               circleSize: 30),
+            //           keyboardUIConfig: KeyboardUIConfig(
+            //               digitBorderWidth: 2,
+            //               primaryColor: Colors.blue),
+            //           opaque: false,
+            //           setButton: Text(
+            //             'Set',
+            //             style: const TextStyle(
+            //                 fontSize: 16, color: Colors.white),
+            //             semanticsLabel: 'Set',
+            //           ),
+            //           cancelButton: Text(
+            //             'Cancel',
+            //             style: const TextStyle(
+            //                 fontSize: 16, color: Colors.white),
+            //             semanticsLabel: 'Cancel',
+            //           ),
+            //         );
+            //       },
+            //     )
+            //   ],
+            // )
+          ],
+        )
+        ),
     );
   }
 
@@ -299,61 +401,33 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class ClippedPartsWidget extends StatelessWidget {
-  final Widget top;
-  final Widget bottom;
-  final double Function(Size, double) splitFunction;
-
-  ClippedPartsWidget({
-    @required this.top,
-    @required this.bottom,
-    @required this.splitFunction,
-  });
-
+class AppBarBorder extends ShapeBorder {
   @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-        child:Stack(
-          children: <Widget>[
-            top,
-            ClipPath(
-              clipper: FunctionClipper(splitFunction: splitFunction),
-              child: bottom,
-            ),
-          ],
-        ),
-    );
-  }
-}
+  Path getOuterPath(Rect rect, {TextDirection textDirection}) {
+    Offset controllPoint1 = Offset(0, rect.size.height - 100);
+    Offset endPoint1 = Offset(100, rect.size.height - 100);
+    Offset controllPoint2 = Offset(rect.size.width, rect.size.height - 100);
+    Offset endPoint2 = Offset(rect.size.width, rect.size.height - 200);
 
-class FunctionClipper extends CustomClipper<Path> {
-  final double Function(Size, double) splitFunction;
-
-  FunctionClipper({@required this.splitFunction}) : super();
-
-  Path getClip(Size size) {
-    final path = Path();
-
-    // move to split line starting point
-    path.moveTo(0, splitFunction(size, 0));
-
-    // draw split line
-    for (double x = 1; x <= size.width; x++) {
-      path.lineTo(x, splitFunction(size, x)/1.40);
-    }
-
-    // close bottom part of screen
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-
-    return path;
+    return Path()
+      ..lineTo(0, rect.size.height)
+      ..quadraticBezierTo(
+          controllPoint1.dx, controllPoint1.dy, endPoint1.dx, endPoint1.dy)
+      ..lineTo(rect.size.width - 100, rect.size.height - 100)
+      ..quadraticBezierTo(
+          controllPoint2.dx, controllPoint2.dy, endPoint2.dx, endPoint2.dy)
+      ..lineTo(rect.size.width, 0);
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    // I'm returning fixed 'true' value here for simplicity, it's not the part of actual question
-    // basically that means that clipping will be redrawn on any changes
-    return true;
-  }
+  EdgeInsetsGeometry get dimensions => EdgeInsets.only(bottom: 0);
+
+  @override
+  Path getInnerPath(Rect rect, {TextDirection textDirection}) => null;
+
+  @override
+  void paint(Canvas canvas, Rect rect, {TextDirection textDirection}) {}
+
+  @override
+  ShapeBorder scale(double t) => this;
 }

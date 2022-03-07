@@ -114,125 +114,116 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIOverlays ([]);
-    return MaterialApp(
-      color: Colors.black,
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          body: SafeArea(
-              child: Container(
+    return Scaffold(
+        body: Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/note.jpg'),
+                    fit: BoxFit.fill
+                )
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10,
+                  bottom: 15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 2.8,
+                  // color: Colors.black26,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/note.jpg'),
-                          fit: BoxFit.fill
-                      )
+                      color: Colors.black38,
+                      border: Border.all(
+                        color: Colors.black26,
+                      ),
+                      borderRadius: BorderRadius.circular(25.0)
                   ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height/2),
-                      // Icon(MyFlutterApp.user_clock , color: Colors.white70 , size: 120,),
-                      Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Container(
-                                // color: Colors.black26,
-                                decoration: BoxDecoration(
-                                    color: Colors.black38,
-                                    border: Border.all(
-                                      color: Colors.black26,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20.0)
-                                ),
-                                child: ClipPath(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context).size.height/60),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: TypewriterAnimatedTextKit(
-                                          isRepeatingAnimation: false,
-                                          speed: Duration(milliseconds: 100),
-                                            text: [
-                                              ' Press fingerprint Icon'
-                                            ],
-                                            textStyle: TextStyle(
-                                              color: Colors.white70,
-                                                fontSize: 18.0,
-                                                fontFamily: "Agne"
-                                            ),
-                                            textAlign: TextAlign.start,
-                                            alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context).size.height/80,
-                                            bottom: MediaQuery.of(context).size.height/50),
-                                      ),
-                                      Center(
-                                          child: Container(
-                                              height: sizeAnimation.value,
-                                              width: sizeAnimation.value,
-                                              child: IconButton(
-                                                iconSize: 80.0,
-                                                icon: Icon(Icons.fingerprint),
-                                                onPressed: _authenticateMe,
-                                              )
-                                          )
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // Padding(
-                                          //   padding: const EdgeInsets.only(
-                                          //       left: 10.0,
-                                          //       bottom: 10.0),
-                                          // ),
-                                          Align(
-                                            alignment: Alignment.bottomRight,
-                                            child: InkWell(
-                                              child: Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: MediaQuery.of(context).size.height/3,
-                                                    right: MediaQuery.of(context).size.height/80,
-                                                    bottom: MediaQuery.of(context).size.height/80,),
-                                                child: Text('Enter Pincode',
-                                                  style: TextStyle(color: Colors.white60),)
-                                              ),
-                                              onTap: (){
-                                                _showLockScreen(
-                                                  context,
-                                                  circleUIConfig: CircleUIConfig(borderColor: Colors.blue, fillColor: Colors.blue, circleSize: 30),
-                                                  keyboardUIConfig: KeyboardUIConfig(digitBorderWidth: 2, primaryColor: Colors.blue),
-                                                  opaque: false,
-                                                  cancelButton: Text(
-                                                    'Cancel',
-                                                    style: const TextStyle(fontSize: 16, color: Colors.white),
-                                                    semanticsLabel: 'Cancel',
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+                  child: ClipPath(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height/60),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: TypewriterAnimatedTextKit(
+                              isRepeatingAnimation: false,
+                              speed: Duration(milliseconds: 100),
+                              text: [
+                                ' Press fingerprint Icon'
+                              ],
+                              textStyle: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 18.0,
+                                  fontFamily: "Agne"
+                              ),
+                              textAlign: TextAlign.start,
+                              alignment: AlignmentDirectional.topStart // or Alignment.topLeft
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height/80,
+                              bottom: MediaQuery.of(context).size.height/50),
+                        ),
+                        Center(
+                            child: Container(
+                                height: sizeAnimation.value,
+                                width: sizeAnimation.value,
+                                child: IconButton(
+                                  iconSize: 80.0,
+                                  icon: Icon(Icons.fingerprint),
+                                  onPressed: _authenticateMe,
+                                )
+                            )
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 10.0,
+                            //       bottom: 10.0),
+                            // ),
+                            Flexible(
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                  child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.height/4,
+                                        right: MediaQuery.of(context).size.height/80,
+                                        bottom: MediaQuery.of(context).size.height/80,),
+                                      child: Text('Enter Pincode',
+                                        style: TextStyle(color: Colors.white60),)
                                   ),
-                                  clipper: MyShape(),
+                                  onTap: (){
+                                    _showLockScreen(
+                                      context,
+                                      circleUIConfig: CircleUIConfig(borderColor: Colors.blue, fillColor: Colors.blue, circleSize: 30),
+                                      keyboardUIConfig: KeyboardUIConfig(digitBorderWidth: 2, primaryColor: Colors.blue),
+                                      opaque: false,
+                                      cancelButton: Text(
+                                        'Cancel',
+                                        style: const TextStyle(fontSize: 16, color: Colors.white),
+                                        semanticsLabel: 'Cancel',
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                            ],
-                          )
-                      )
-                    ],
-                  )
-              )
-
-          )
-      )
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    clipper: MyShape(),
+                  ),
+                ),
+              ),
+            )
+        )
     );
   }
 
