@@ -14,9 +14,6 @@ void main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
 
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) =>
       MultiProvider(
         providers: [
           ChangeNotifierProvider<Settings>(create: (context) => Settings()),
@@ -33,8 +30,7 @@ void main() async {
             return MyApp();
           },
         ),
-      ),
-    )
+      )
   );
 }
 
